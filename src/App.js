@@ -1,14 +1,22 @@
 import React from "react";
-import Button from "./Button";
-import styles from "./App.module.css";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from "react-router-dom";
+import Home from "./routes/Home";
+import Detail from "./routes/Detail";
 
 function App() {
-  return (
-    <div>
-      <h1 className={styles.title}>YCLOVE</h1>
-      <Button text={"Continue"} />
-    </div>
-  );
+  return <Router>
+    <Routes>
+      <Route path="/hello" element={
+        <h1>Hello</h1>
+      } />
+      <Route path="/" element={<Home />} />
+      <Route path="/movie/:id" element={<Detail />} />
+    </Routes>
+  </Router>
 }
 
 export default App;
