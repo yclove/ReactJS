@@ -1,16 +1,16 @@
 import React, { useEffect, useState, useCallback, useRef } from "react";
 import { useParams } from "react-router-dom";
 
-const useConfirm = (message = "", callback, rejection) => {
-  if (typeof callback !== "function" || typeof rejection !== "function") {
+const useConfirm = (message = "", onAllow, onDeny) => {
+  if (typeof onAllow !== "function" || typeof onDeny !== "function") {
     return;
   }
 
   const confirmAction = () => {
     if (window.confirm(message)) {
-      callback();
+      onAllow();
     } else {
-      rejection();
+      onDeny();
     }
   };
   return confirmAction;
@@ -50,7 +50,7 @@ const useClick = (onClick) => {
 
 function Detail() {
   const sayHello = () => console.log("Say Hello");
-  const title = useClick(sayHello);
+  const useClickElement = useClick(sayHello);
 
   const { id } = useParams();
   const fetchUrl = `https://yts.mx/api/v2/movie_details.json?movie_id=${id}`;
@@ -73,13 +73,13 @@ function Detail() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const onDelete = () => {
-    console.log("Delete");
+  const onAllow = () => {
+    console.log("onAllow");
   };
-  const onAbort = () => {
-    console.log("Abort");
+  const onDeny = () => {
+    console.log("onDeny");
   };
-  const confirmDelete = useConfirm("Are you sure?", onDelete, onAbort);
+  const confirmDelete = useConfirm("Are you sure?", onAllow, onDeny);
 
   return (
     <div>
@@ -88,7 +88,7 @@ function Detail() {
         <strong>Loading...</strong>
       ) : (
         <div>
-          <h1 ref={title}>{movie.title}</h1>
+          <h1 ref={useClickElement}>{movie.title}</h1>
           <button onClick={confirmDelete}>Delete Movie</button>
         </div>
       )}

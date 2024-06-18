@@ -1,9 +1,12 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
+/**
+ * from 'react' 의 경우 Node.js 모듈을 의미.
+ */
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
 import "./styles.css";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   /**
    * 개발모드에서 (개발 단계시 오류를 잘 잡기위해) 두 번씩 렌더링됩니다.
